@@ -1,0 +1,6 @@
+.hideFilter {
+    display: none !important;
+}
+.noHideFilter {
+    display: inline-block !important;
+}

@@ -1,0 +1,18 @@
+.backgroundNavBar {
+    background-color: rgb(65, 65, 65);
+    height: 100px;
+}
+.active {
+    background-color: white;
+    color: black !important;
+}
+.linkNav {
+    color: white;
+    font-size: 1.5em;
+    border-radius: 7px;
+}
+.linkNav:hover {
+    text-decoration: none !important;
+    background-color: white;
+    color: black !important;
+}

@@ -1,0 +1,15 @@
+.colorResult {
+    background-color: gray;
+    font-size: 2em;
+    color: white;
+    border: 1px solid black;
+}
+.add {
+    width: 100%;
+    font-size: 2em;
+    border: 1px solid black;
+    border-radius: 0;
+}
+.historique {
+    list-style-type: none;
+}

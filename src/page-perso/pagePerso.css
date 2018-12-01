@@ -1,0 +1,12 @@
+.textTitle {
+  font-size: 1.5em;
+}
+.btnWhite {
+  background-color: white !important;
+  color: black !important;
+  border-color: rgb(68, 68, 68) !important;
+}
+.btnWhite:hover {
+  background-color: rgb(228, 228, 228) !important;
+  color: black !important;
+}

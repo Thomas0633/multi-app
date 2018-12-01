@@ -1,0 +1,20 @@
+.containerResult {
+    width: 442px;
+    height: 200px;
+    background-color: rgb(211, 210, 210);
+    opacity: 0.8;
+}
+.containerCompt {
+    width: 442px;
+}
+.result {
+    font-size: 6em;
+}
+.boutonCompteur {
+    font-size: 1.5em;
+    width: 88px;
+    height: 88px;
+}
+.boutonCompteur2 {
+    font-size: 1.5em;
+}
