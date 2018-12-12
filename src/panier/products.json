@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "product": "Samsung Galaxy S9",
+    "price": 800,
+    "img": "https://dyw7ncnq1en5l.cloudfront.net/optim/produits/36/42287/samsung-galaxy-s9_374e6bf6258ba0d3__450_400.jpg"
+  },
+  {
+    "id": 2,
+    "product": "Casque Beats",
+    "price": 200,
+    "img": "https://www.beatsbydre.com/content/dam/beats/web/pdp/beats-solo3-wireless/product_card/matteblack_V2.png"
+  },
+  {
+    "id": 3,
+    "product": "Enceinte JBL",
+    "price": 80,
+    "img": "https://image.darty.com/audio_mp3_mp4/enceinte_ipod_ipad_iphone_mp3/enceinte_bluetooth_sans_fil/jbl_flip_4_noir_t1703064294564A_165630521.jpg"
+  }
+]

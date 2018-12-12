@@ -8,11 +8,19 @@ class Calcul extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            height: 0,
             resultat: 0,
             operation: [],
             histo: [],
         }
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentDidMount() {
+      const height = window.innerHeight - 100;
+      this.setState({
+        height,
+      });
     }
 
     handleClick(e) {
@@ -64,7 +72,10 @@ class Calcul extends Component {
     render() {
         return(
             <div>
-                <Header img={<i class="far fa-hand-pointer"></i>} txt="Calculatrice" />
+              <div className="maintenanceCalc" style={{ minHeight: this.state.height }}>
+                <h1 className="titleMaintenanceCalc"><i className="fas fa-wrench"></i> En maintenance</h1>
+              </div>
+                <Header img={<i className="fas fa-calculator"></i>} txt="Calculatrice" />
                 <Container fluid>
                     <Row>
                         <Col md='8'>

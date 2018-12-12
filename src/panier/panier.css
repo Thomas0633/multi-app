@@ -1,0 +1,15 @@
+.maintenancePanier {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.titleMaintenance {
+  font-weight: bold;
+  padding-top: 200px;;
+}
+.imagePanier {
+  display: block;
+  width: 100px;
+  margin: auto;
+}

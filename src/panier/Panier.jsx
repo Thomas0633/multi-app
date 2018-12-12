@@ -1,64 +1,74 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import Header from '../Header';
+import ElementsProduits from './ElementsProduits';
 import ElementsPanier from './ElementsPanier';
 
-const products = [
-    {
-        id: 1,
-        product: "Samsung Galaxy S9",
-        price: 800
-    },
-    {
-        id: 2,
-        product: "Casque Beats",
-        price: 200
-    },
-    {
-        id: 3,
-        product: "Enceinte JBL",
-        price: 80
-    }
-]
+import products from './products.json'
 
 class Panier extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            height: 0,
             elements: [],
-            panier: []
+            panier: [],
+            total: 0,
         }
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickAdd = this.handleClickAdd.bind(this);
+        this.handleClickDelete = this.handleClickDelete.bind(this);
     }
 
     componentDidMount() {
-        this.setState({
-            elements: products,
-        });
+      const height = window.innerHeight - 100;
+      this.setState({
+        height,
+        elements: products,
+      });
     }
 
-    handleClick(e) {
-        const triElements = this.state.elements.filter(item => e.target.name !== item.id),
-        ajoutPanier = this.state.elements.filter(item => e.target.name === item.id);
-        console.log(triElements);
-        console.log(ajoutPanier);
-        this.setState({
-            elements: triElements,
-            panier: ajoutPanier,
-        })
+    handleClickAdd(e) {
+      let priceNumber = this.state.elements.filter((item, index) => {
+        if (e.target.id-1 === index) {
+          return item.price;
+        }
+      });
+      this.setState({
+        panier: [...this.state.panier, products[e.target.id-1]],
+        total: this.state.total + priceNumber[0].price,
+      });
+    }
+
+    handleClickDelete(e) {
+      let priceElement = 0;
+      const newPanier = this.state.panier.filter((item, index) => {
+        if (e.target.id-1 !== index) {
+          priceElement = item.price;
+          return item;
+        }
+      });
+      console.log(priceElement);
+      console.log(this.state.total)
+      this.setState({
+        panier: newPanier,
+        total: this.state.price - priceElement,
+      });
     }
 
     render() {
         return(
             <div>
-                <Header img={<i class="fas fa-shopping-cart"></i>} txt="Panier" />
+              <div className="maintenancePanier" style={{ minHeight: this.state.height }}>
+                <h1 className="titleMaintenance"><i class="fas fa-wrench"></i> En maintenance</h1>
+              </div>
+                <Header img={<i className="fas fa-shopping-cart"></i>} txt="Panier" />
                 <Container fluid>
                     <Row>
                         <Col md="6">
                             <h2>Produits</h2>
                             <Row>
                                 {this.state.elements.map(item => {
-                                    return <ElementsPanier name={item.product} price={item.price} index={item.id} function={this.handleClick} />
+                                    return <ElementsProduits img={item.img} id={item.id} name={item.product} price={item.price} handleClick={this.handleClickAdd} />
                                 })}
                             </Row>
                         </Col>
@@ -66,9 +76,11 @@ class Panier extends Component {
                             <h2>Panier</h2>
                             <Row>
                                 {this.state.panier.map(item => {
-                                    return <ElementsPanier name={item.product} price={item.price} index={item.id} function={this.handleClick} />
+                                    return <ElementsPanier img={item.img} id={item.id} name={item.product} price={item.price} handleClick={this.handleClickDelete} />
                                 })}
                             </Row>
+                            <hr />
+                            <h3>Montant total : {this.state.total}€</h3>
                         </Col>
                     </Row>
                 </Container>

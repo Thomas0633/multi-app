@@ -148,7 +148,7 @@ class Search2 extends Component {
                 <Container>
                     <Form>
                         <Row>
-                            <Col md='4'>
+                            <Col md='5'>
                                 <FormGroup>
                                     <Label for="pays">Pays</Label>
                                     <Input type="select" value={this.state.criterePays} name="pays" id="pays" onChange={this.handleChangePays}>
@@ -164,7 +164,10 @@ class Search2 extends Component {
                                     </Input>
                                 </FormGroup>
                             </Col>
-                            <Col md='4'>
+                            <Col md='2'>
+                              <h3 className='display-4'>ET</h3>
+                            </Col>
+                            <Col md='5'>
                                 <FormGroup>
                                     <Label for="continent">Continent</Label>
                                     <Input type="select" value={this.state.critereContinent} name="continent" id="continent" onChange={this.handleChangeContinent}>
@@ -173,18 +176,6 @@ class Search2 extends Component {
                                         <option value="Amerique">Amérique</option>
                                         <option value="Asie">Asie</option>
                                     </Input>
-                                </FormGroup>
-                            </Col>
-                            <Col md='2'>
-                                <FormGroup>
-                                    <Label for="dateDepart">Date de départ</Label>
-                                    <Input type="date" value={this.state.critereDateDepart} name="dateDepart" id="dateDepart" placeholder="date placeholder" onChange={this.handleChangeDateDepart} />
-                                </FormGroup>
-                            </Col>
-                            <Col md='2'>
-                                <FormGroup>
-                                    <Label for="dateRetour">Date de retour</Label>
-                                    <Input type="date" value={this.state.critereDateRetour} name="dateRetour" id="dateRetour" placeholder="date placeholder" onChange={this.handleChangeDateRetour} />
                                 </FormGroup>
                             </Col>
                         </Row>
