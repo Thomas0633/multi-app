@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import Header from '../Header';
 import ElementsProduits from './ElementsProduits';
 import ElementsPanier from './ElementsPanier';
@@ -17,6 +17,7 @@ class Panier extends Component {
         }
         this.handleClickAdd = this.handleClickAdd.bind(this);
         this.handleClickDelete = this.handleClickDelete.bind(this);
+        this.handleClickEmptyPanier = this.handleClickEmptyPanier.bind(this);
     }
 
     componentDidMount() {
@@ -27,40 +28,53 @@ class Panier extends Component {
       });
     }
 
-    handleClickAdd(e) {
+    componentDidUpdate() {
+      if (this.state.total < 0) {
+        this.setState({
+          total: 0,
+        });
+      }
+    }
+
+    handleClickAdd(idArg) {
+      let id = parseInt(idArg);
       let priceNumber = this.state.elements.filter((item, index) => {
-        if (e.target.id-1 === index) {
+        if (id-1 === index) {
           return item.price;
         }
       });
       this.setState({
-        panier: [...this.state.panier, products[e.target.id-1]],
+        panier: [...this.state.panier, products[id-1]],
         total: this.state.total + priceNumber[0].price,
       });
     }
 
-    handleClickDelete(e) {
+    handleClickDelete(idArg) {
+      let id = parseInt(idArg);
       let priceElement = 0;
-      const newPanier = this.state.panier.filter((item, index) => {
-        if (e.target.id-1 !== index) {
-          priceElement = item.price;
+      const newPanier = this.state.panier.filter(item => {
+        if (id !== item.id) {
           return item;
+        } else if (id === item.id) {
+          priceElement = this.state.total - parseInt(item.price, 10);
         }
       });
-      console.log(priceElement);
-      console.log(this.state.total)
       this.setState({
         panier: newPanier,
-        total: this.state.price - priceElement,
+        total: priceElement,
+      });
+    }
+
+    handleClickEmptyPanier() {
+      this.setState({
+        panier: [],
+        total: 0,
       });
     }
 
     render() {
         return(
             <div>
-              <div className="maintenancePanier" style={{ minHeight: this.state.height }}>
-                <h1 className="titleMaintenance"><i class="fas fa-wrench"></i> En maintenance</h1>
-              </div>
                 <Header img={<i className="fas fa-shopping-cart"></i>} txt="Panier" />
                 <Container fluid>
                     <Row>
@@ -74,6 +88,7 @@ class Panier extends Component {
                         </Col>
                         <Col  md="6">
                             <h2>Panier</h2>
+                            <Button color='info' onClick={this.handleClickEmptyPanier}>Vider le panier</Button>
                             <Row>
                                 {this.state.panier.map(item => {
                                     return <ElementsPanier img={item.img} id={item.id} name={item.product} price={item.price} handleClick={this.handleClickDelete} />
