@@ -10,6 +10,7 @@ class Calcul extends Component {
         this.state = {
             height: 0,
             resultat: 0,
+            equal: false,
             operation: [],
             histo: [],
         }
@@ -24,64 +25,43 @@ class Calcul extends Component {
     }
 
     handleClick(e) {
-        let indexOperator = 0;
-        
-        if(e.target.value !== '=' && e.target.value !== 'clear') { // ==== NOMBRES ====
-            this.setState({
-                resultat: e.target.value,
-                operation: [...this.state.operation, e.target.value],
-            });
-        } else if(e.target.value === 'clear') { // ==== CLEAR ====
-            this.setState({
-                resultat: 0,
-                operation: [],
-            });
-        } else if(e.target.value === '='){ // ==== BOUTTON '=' ====
-            const newOperation = this.state.operation.map(nb => {
-                if(nb.charCodeAt(0) < 48 || nb.charCodeAt(0) > 57) {
-                    indexOperator = this.state.operation.indexOf(nb);
-                    return nb;
-                } else {
-                    return nb;
-                }
-            });
-            let nb1 = Number.parseInt(this.state.operation.filter((nbr, index) => index < indexOperator).join('')), nb2 = Number.parseInt(this.state.operation.filter((nbr, index) => index > indexOperator).join('')), result = 0;
-            switch(this.state.operation[indexOperator]) {
-                case '+':
-                    result = nb1 + nb2;
-                    break;
-                case '-':
-                    result = nb1 - nb2;
-                    break;
-                case '*':
-                    result = nb1 * nb2;
-                    break;
-                case '/':
-                    result = nb1 / nb2;
-                    break;
-            }
-            let historique = `${nb1} ${this.state.operation[indexOperator]} ${nb2} = ${result}`
-            this.setState({
-                resultat: result,
-                operation: [],
-                histo: [...this.state.histo, historique],
-            })
+      if (e.target.value !== '=' && e.target.value !== 'clear') {
+        this.setState({
+          equal: false,
+          operation: [...this.state.operation, e.target.value],
+        });
+      } else if (e.target.value === '=') {
+        let operation = this.state.operation;
+        if (operation[0] === '0') {
+          operation.splice(0, 1);
         }
+        let resultat = eval(operation.join(''));
+        let histo = `${operation.join('')} = ${resultat}`;
+        this.setState({
+          resultat,
+          equal: true,
+          operation: [],
+          histo: [...this.state.histo, histo],
+        });
+      } else if (e.target.value === 'clear') {
+        this.setState({
+          equal: false,
+          resultat: 0,
+          operation: [],
+        });
+      }
     }
 
     render() {
         return(
             <div>
-              <div className="maintenanceCalc" style={{ minHeight: this.state.height }}>
-                <h1 className="titleMaintenanceCalc"><i className="fas fa-wrench"></i> En maintenance</h1>
-              </div>
                 <Header img={<i className="fas fa-calculator"></i>} txt="Calculatrice" />
                 <Container fluid>
                     <Row>
                         <Col md='8'>
                             <Row>
                                 <Col md={{ size: '4', offset: '4' }} className="p-0 text-right pr-3 pt-1 pb-1 colorResult">
-                                    {this.state.resultat}
+                                    {(this.state.equal) ? this.state.resultat : this.state.operation}
                                 </Col>
                             </Row>
                             <Row>
@@ -103,12 +83,12 @@ class Calcul extends Component {
                                     <Bouton color='info' value='3' fonctionClick={this.handleClick} contenu='3' />
                                 </Col>
                                 <Col md="1" className="p-0">
-                                    <Bouton color='danger' value='x' fonctionClick={this.handleClick} contenu='x' />
+                                    <Bouton color='danger' value='*' fonctionClick={this.handleClick} contenu='x' />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col md={{ size: '1', offset: '4' }} className="p-0">
-                                    <Bouton color='info' value='4' contenu='4' />
+                                    <Bouton color='info' value='4' fonctionClick={this.handleClick} contenu='4' />
                                 </Col>
                                 <Col md="1" className="p-0">
                                     <Bouton color='info' value='5' fonctionClick={this.handleClick} contenu='5' />

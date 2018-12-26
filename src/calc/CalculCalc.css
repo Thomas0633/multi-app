@@ -1,19 +1,9 @@
-.maintenanceCalc {
-  position: absolute;
-  width: 100%;
-  z-index: 999;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-.titleMaintenanceCalc {
-  font-weight: bold;
-  padding-top: 200px;;
-}
-
 .colorResult {
     background-color: gray;
     font-size: 2em;
     color: white;
     border: 1px solid black;
+    height: 58px;
 }
 .add {
     width: 100%;
